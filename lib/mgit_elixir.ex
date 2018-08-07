@@ -13,9 +13,6 @@ defmodule MgitElixir do
   end
 
   def branch(path) do
-    :pepe
-
-    def branch(path):
-    return ejecutar('git rev-parse --abbrev-ref HEAD', path)
+    System.cmd("git", ["rev-parse", "--abbrev-ref", "HEAD"], cd: path)
   end
 end
