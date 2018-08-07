@@ -31,7 +31,8 @@ test_live:
 	mix test.watch --stale
 
 ejecutar:
-	mix run
+	mix escript.build
+	./mgit_elixir
 
 version:
 	yarn release

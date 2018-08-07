@@ -2,10 +2,6 @@ defmodule MgitElixirTest do
   use ExUnit.Case
   doctest MgitElixir
 
-  test "greets the world" do
-    assert MgitElixir.hello() == :world
-  end
-
   test "puede quitar .git" do
     assert MgitElixir.quitar_git("mi_repo/.git") == "mi_repo/"
   end
@@ -15,7 +11,7 @@ defmodule MgitElixirTest do
   end
 
   test "puede listar repositorios del fixture" do
-    assert MgitElixir.repos("fixture") |> Enum.count() > 0
+    assert MgitElixir.repos("fixture") |> Enum.count() == 1
   end
 
   test "puede listar repos y no tiene .git al final" do
@@ -23,5 +19,9 @@ defmodule MgitElixirTest do
 
     assert MgitElixir.repos("/proyectos") |> Enum.find(fn x -> String.ends_with?(x, ".git") end) ==
              nil
+  end
+
+  test "Puede listar e imprimir fixtures" do
+    assert MgitElixir.branch("fixture/mgit_elixir") == 'master'
   end
 end

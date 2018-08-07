@@ -1,6 +1,6 @@
 defmodule MgitElixir do
-  def hello do
-    :world
+  def main(args) do
+    IO.puts("Gola!")
   end
 
   def repos(path) do
@@ -10,5 +10,12 @@ defmodule MgitElixir do
 
   def quitar_git(nombre) do
     String.replace(nombre, ".git", "")
+  end
+
+  def branch(path) do
+    :pepe
+
+    def branch(path):
+    return ejecutar('git rev-parse --abbrev-ref HEAD', path)
   end
 end
