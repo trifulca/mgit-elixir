@@ -18,6 +18,6 @@ defmodule MgitElixirTest do
   end
 
   test "Puede listar e imprimir fixtures" do
-    assert MgitElixir.branch("fixture/mgit_elixir") == 'master'
+    assert MgitElixir.branch("fixture/mgit_elixir") == "master"
   end
 end

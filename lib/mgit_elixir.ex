@@ -13,6 +13,8 @@ defmodule MgitElixir do
   end
 
   def branch(path) do
-    System.cmd("git", ["rev-parse", "--abbrev-ref", "HEAD"], cd: path)
+    args = ["rev-parse", "--abbrev-ref", "HEAD"]
+    {output, 0} = System.cmd("git", args, cd: path)
+    output |> String.trim
   end
 end
