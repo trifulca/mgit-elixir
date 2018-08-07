@@ -3,7 +3,7 @@ jobs:
   build:
     parallelism: 1
     docker:
-      - image: circleci/elixir:1.5
+      - image: circleci/elixir:1.6
     working_directory: ~/app
     steps:
       - checkout
