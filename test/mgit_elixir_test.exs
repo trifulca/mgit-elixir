@@ -6,10 +6,6 @@ defmodule MgitElixirTest do
     assert MgitElixir.quitar_git("mi_repo/.git") == "mi_repo/"
   end
 
-  test "puede listar repos" do
-    assert MgitElixir.repos("/proyectos") |> Enum.count() > 0
-  end
-
   test "puede listar repositorios del fixture" do
     assert MgitElixir.repos("fixture") |> Enum.count() == 1
   end
