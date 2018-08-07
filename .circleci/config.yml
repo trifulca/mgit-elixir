@@ -8,6 +8,7 @@ jobs:
     steps:
       - checkout
       - run: mix local.hex --force  # install Hex locally (without prompt)
+      - run: make crear_fixture
       - run: mix local.rebar --force  # fetch a copy of rebar (without prompt)
       - restore_cache:  # restores saved mix cache
           keys:  # list of cache keys, in decreasing specificity

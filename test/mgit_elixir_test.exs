@@ -14,6 +14,10 @@ defmodule MgitElixirTest do
     assert MgitElixir.repos("/proyectos") |> Enum.count() > 0
   end
 
+  test "puede listar repositorios del fixture" do
+    assert MgitElixir.repos("fixture") |> Enum.count() > 0
+  end
+
   test "puede listar repos y no tiene .git al final" do
     assert is_list(MgitElixir.repos("/proyectos"))
 
