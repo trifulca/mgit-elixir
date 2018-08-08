@@ -24,4 +24,8 @@ defmodule MgitElixirTest do
   test "Puede sincronizar los fixtures" do
     assert MgitElixir.sincronizar("fixture/mgit_elixir") == :ok
   end
+
+  test "Puede listar el estado del fixture en consola" do
+    MgitElixir.imprimir("fixture/")
+  end
 end

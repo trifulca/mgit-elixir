@@ -3,8 +3,8 @@ defmodule MgitElixir do
     imprimir(System.cwd!())
   end
 
-  defp imprimir(path) do
-    IO.puts(path)
+  def imprimir(path) do
+    path |> repos |> IO.puts()
   end
 
   def repos(path) do
@@ -26,8 +26,8 @@ defmodule MgitElixir do
   end
 
   defp git(comando, path) do
-    args = comando |> String.split
+    args = comando |> String.split()
     {output, 0} = System.cmd("git", args, cd: path)
-    output |> String.trim
+    output |> String.trim()
   end
 end
