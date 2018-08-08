@@ -20,4 +20,8 @@ defmodule MgitElixirTest do
   test "Puede listar e imprimir fixtures" do
     assert MgitElixir.branch("fixture/mgit_elixir") == "master"
   end
+
+  test "Puede sincronizar los fixtures" do
+    assert MgitElixir.sincronizar("fixture/mgit_elixir") == :ok
+  end
 end

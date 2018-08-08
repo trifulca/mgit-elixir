@@ -1,6 +1,10 @@
 defmodule MgitElixir do
-  def main(args) do
-    IO.puts("Gola!")
+  def main(_) do
+    imprimir(System.cwd!())
+  end
+
+  defp imprimir(path) do
+    IO.puts(path)
   end
 
   def repos(path) do
@@ -13,7 +17,16 @@ defmodule MgitElixir do
   end
 
   def branch(path) do
-    args = ["rev-parse", "--abbrev-ref", "HEAD"]
+    git("rev-parse --abbrev-ref HEAD", path)
+  end
+
+  def sincronizar(path) do
+    git("fetch origin", path)
+    :ok
+  end
+
+  defp git(comando, path) do
+    args = comando |> String.split
     {output, 0} = System.cmd("git", args, cd: path)
     output |> String.trim
   end
