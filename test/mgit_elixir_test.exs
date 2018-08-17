@@ -28,4 +28,29 @@ defmodule MgitElixirTest do
   test "Puede listar el estado del fixture en consola" do
     MgitElixir.imprimir("fixture/")
   end
+
+  test "Puede obtener los cambios remotos" do
+    repo = "fixture/mgit_elixir"
+    branch = "master"
+    MgitElixir.sincronizar(repo)
+    MgitElixir.realizar_pull(repo, branch)
+    assert MgitElixir.cantidad_de_cambios_remotos_no_sincronizados(repo, branch) == 0
+  end
+
+  test "Puede obtener el repositorio junto con el branch" do
+    assert MgitElixir.obtener_branch_y_repositorio("fixture/mgit_elixir") == [
+             repo: "fixture/mgit_elixir",
+             branch: "master",
+             remotos: 0,
+             locales: 0
+           ]
+  end
+
+  test "Puede obtener el repositorio junto con el branch de una lista" do
+    lista = ["fixture/mgit_elixir"]
+
+    assert MgitElixir.obtener_branchs_desde_lista_de_repositorios(lista) == [
+             [repo: "fixture/mgit_elixir", branch: "master", remotos: 0, locales: 0]
+           ]
+  end
 end

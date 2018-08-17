@@ -41,6 +41,7 @@ crear_fixture:
 	rm -rf fixture
 	mkdir fixture
 	git clone https://github.com/trifulca/mgit_elixir.git fixture/mgit_elixir
+	cd fixture; mkdir repo_error; cd repo_error; git init
 
 
 .PHONY: test
