@@ -70,6 +70,8 @@ defmodule MgitElixir do
   end
 
   def obtener_branch_y_repositorio(path) do
+    sincronizar(path)
+
     nombre_del_branch = branch(path)
     [
       repo: path,
