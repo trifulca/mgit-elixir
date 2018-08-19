@@ -1,3 +1,11 @@
+defmodule Parallel do
+  def pmap(collection, func) do
+    collection
+    |> Enum.map(&(Task.async(fn -> func.(&1) end)))
+    |> Enum.map(&Task.await/1)
+  end
+end
+
 defmodule MgitElixir do
   alias TableRex.Table
 
@@ -62,7 +70,7 @@ defmodule MgitElixir do
   end
 
   def obtener_branchs_desde_lista_de_repositorios(repositorios) do
-    repositorios |> Enum.map(fn repo -> obtener_branch_y_repositorio(repo) end)
+    repositorios |> Parallel.pmap(fn repo -> obtener_branch_y_repositorio(repo) end)
   end
 
   def branch(path) do
