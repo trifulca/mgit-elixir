@@ -14,6 +14,7 @@ comandos:
 	@echo "  ${Y}Generales de la aplicación${N}"
 	@echo ""
 	@echo "    ${G}iniciar${N}               Instala todas las dependencias."
+	@echo "    ${G}compilar${N}              Genera el binario compilado."
 	@echo "    ${G}ejecutar${N}              Ejecuta la aplicación de forma local."
 	@echo "    ${G}test${N}                  Ejecuta los tests."
 	@echo "    ${G}test_live${N}             Ejecuta los tests de forma contínua."
@@ -30,6 +31,9 @@ test:
 test_live:
 	mix test.watch --stale
 
+compilar:
+	mix escript.build
+
 ejecutar:
 	mix escript.build
 	./mgit_elixir
@@ -41,7 +45,9 @@ crear_fixture:
 	rm -rf fixture
 	mkdir fixture
 	git clone https://github.com/trifulca/mgit_elixir.git fixture/mgit_elixir
-	cd fixture; mkdir repo_error; cd repo_error; git init
+	git clone git@github.com:trifulca/mgit_elixir.git fixture/mgit_elixir_locales
+	echo "demo" >> fixture/mgit_elixir_locales/Makefile
+	#cd fixture; mkdir repo_error; cd repo_error; git init
 
 
 .PHONY: test

@@ -7,7 +7,7 @@ defmodule MgitElixirTest do
   end
 
   test "puede listar repositorios del fixture" do
-    assert MgitElixir.repos("fixture") |> Enum.count() == 1
+    assert MgitElixir.repos("fixture") |> Enum.count() == 2
   end
 
   test "puede listar repos y no tiene .git al final" do
@@ -40,6 +40,7 @@ defmodule MgitElixirTest do
   test "Puede obtener el repositorio junto con el branch" do
     assert MgitElixir.obtener_branch_y_repositorio("fixture/mgit_elixir") == [
              repo: "fixture/mgit_elixir",
+             nombre: "mgit_elixir",
              branch: "master",
              remotos: 0,
              locales: 0
@@ -50,7 +51,13 @@ defmodule MgitElixirTest do
     lista = ["fixture/mgit_elixir"]
 
     assert MgitElixir.obtener_branchs_desde_lista_de_repositorios(lista) == [
-             [repo: "fixture/mgit_elixir", branch: "master", remotos: 0, locales: 0]
+             [
+               repo: "fixture/mgit_elixir",
+               nombre: "mgit_elixir",
+               branch: "master",
+               remotos: 0,
+               locales: 0
+             ]
            ]
   end
 end
