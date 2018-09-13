@@ -15,6 +15,7 @@ defmodule MgitElixir.MixProject do
   # Run "mix help compile.app" to learn about applications.
   def application do
     [
+      mod: {MgitElixir, []},
       extra_applications: [:logger, :table_rex]
     ]
   end

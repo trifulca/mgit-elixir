@@ -1,7 +1,7 @@
 defmodule Parallel do
   def pmap(collection, func) do
     collection
-    |> Enum.map(&(Task.async(fn -> func.(&1) end)))
+    |> Enum.map(&Task.async(fn -> func.(&1) end))
     |> Enum.map(&Task.await/1)
   end
 end
@@ -9,8 +9,17 @@ end
 defmodule MgitElixir do
   alias TableRex.Table
 
+  def start(_type, _args) do
+    IO.puts("starting")
+
+    Task.start(fn ->
+      :timer.sleep(1000)
+      IO.puts("done sleeping")
+    end)
+  end
+
   def main(_) do
-    directorio = File.cwd!
+    directorio = File.cwd!()
     IO.puts("Consultando el directorio " <> directorio)
     imprimir(directorio)
   end
@@ -20,7 +29,7 @@ defmodule MgitElixir do
   end
 
   def imprimir_en_tabla([]) do
-      IO.puts("No hay repositorios aquí")
+    IO.puts("No hay repositorios aquí")
   end
 
   def imprimir_en_tabla(lista_de_repositorios) do
@@ -28,9 +37,15 @@ defmodule MgitElixir do
     repositorios_como_lista = lista_de_repositorios |> convertir_a_array
 
     Table.new(repositorios_como_lista, titulos)
-      |> Table.put_column_meta(1..7, color: fn(text, value) -> aplicar_color(text, value) end )
-      |> Table.render!(header_separator_symbol: "-", top_frame_symbol: " ", bottom_frame_symbol: " ", horizontal_style: :header, vertical_style: :off)
-      |> IO.puts
+    |> Table.put_column_meta(1..7, color: fn text, value -> aplicar_color(text, value) end)
+    |> Table.render!(
+      header_separator_symbol: "-",
+      top_frame_symbol: " ",
+      bottom_frame_symbol: " ",
+      horizontal_style: :header,
+      vertical_style: :off
+    )
+    |> IO.puts()
   end
 
   defp aplicar_color(texto, valor) do
@@ -44,12 +59,15 @@ defmodule MgitElixir do
   end
 
   defp convertir_a_array(lista_de_repositorios) do
-    lista_de_repositorios |> Enum.map(fn x -> [
+    lista_de_repositorios
+    |> Enum.map(fn x ->
+      [
         x[:nombre],
         convertir_en_texto(x[:remotos], "remoto"),
         convertir_en_texto(x[:locales], "local"),
         x[:branch]
-      ] end)
+      ]
+    end)
   end
 
   def convertir_en_texto(cambios, texto) when cambios > 0 do
@@ -81,6 +99,7 @@ defmodule MgitElixir do
     sincronizar(path)
 
     nombre_del_branch = branch(path)
+
     [
       repo: path,
       nombre: nombre(path),
@@ -93,7 +112,6 @@ defmodule MgitElixir do
   defp nombre(path) do
     Path.basename(path)
   end
-
 
   def sincronizar(path) do
     git("fetch origin", path)
